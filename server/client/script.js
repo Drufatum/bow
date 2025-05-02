@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("https://github.com/Drufatum/bow/commit/d29307fede3dd551be2244ebc1751e86b860b701");
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
