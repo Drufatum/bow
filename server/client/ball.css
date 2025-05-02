@@ -1,8 +1,6 @@
-body {
-  margin: 0;
-  overflow: hidden;
-}
 canvas {
-  display: block;
-  background: #eee;
-}
+    border: 2px solid #ccc;
+    background-color: #fdfdfd;
+    display: block;
+    margin: 40px auto;
+  }
