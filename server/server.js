@@ -1,28 +1,23 @@
 const express = require("express");
 const http = require("http");
-const path = require("path");
+const { Server } = require("socket.io");
+
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server);
+
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static("client"));
 
-const users = {
-  alice: { password: "1234", saveData: { x: 100, y: 100 } },
-  bob: { password: "abcd", saveData: { x: 300, y: 300 } }
-};
+io.on("connection", (socket) => {
+  console.log("有玩家連線");
 
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  const user = users[username];
-  if (user && user.password === password) {
-    res.json({ success: true, saveData: user.saveData });
-  } else {
-    res.json({ success: false });
-  }
+  socket.on("move", (data) => {
+    socket.broadcast.emit("move", data);
+  });
 });
 
 server.listen(PORT, () => {
-  console.log(`伺服器正在 http://localhost:${PORT} 運行`);
+  console.log(`伺服器正在 ${PORT} 埠口運行`);
 });
