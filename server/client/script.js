@@ -139,7 +139,13 @@ function meow(e){
   
   nowChimeila.vx=(nowChimeila.x-z[0])/30;
   nowChimeila.vy=(nowChimeila.y-z[1])/30;
-  socket.emit("move", [nowChimeila.vx,nowChimeila.vx]);
+  let r=complexAbs([nowChimeila.vx,nowChimeila.vy]);
+  if(r>100){
+    nowChimeila.vx=100*nowChimeila.vx/r;
+    nowChimeila.vy=100*nowChimeila.vy/r;
+
+  }
+  socket.emit("move", [nowChimeilaId,nowChimeila.vx,nowChimeila.vy]);
   canvas.removeEventListener("mousedown", choose);
   document.removeEventListener("mouseup", meow);
   draw();
@@ -188,6 +194,7 @@ draw();
 
 
 socket.on("move", (data) => {
+  alert(data)
   nowChimeilaId=data[0];
   const nowChimeila=bowpow[nowChimeilaId];
   nowChimeila.vx=data[1];
