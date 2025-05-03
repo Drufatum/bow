@@ -132,9 +132,10 @@ let nowChimeilaId=0;
 function meow(e){
   let z=[(e.clientX - rect.left),(e.clientY - rect.top)];
   const nowChimeila=bowpow[nowChimeilaId];
-  nowChimeila.vx=(nowChimeila.x-z[0])/30;
-  nowChimeila.vy=(nowChimeila.y-z[1])/30;
-  socket.emit("move", [nowChimeilaId,(nowChimeila.x-z[0])/30,(nowChimeila.y-z[1])/30]);
+  
+  nowChimeila.vx=min((nowChimeila.x-z[0])/30,100);
+  nowChimeila.vy=min((nowChimeila.y-z[1])/30,100);
+  socket.emit("move", [nowChimeila.vx,nowChimeila.vx]);
   canvas.removeEventListener("mousedown", choose);
   document.removeEventListener("mouseup", meow);
   draw();
