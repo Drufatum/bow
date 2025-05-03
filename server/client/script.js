@@ -1,5 +1,9 @@
+const socket = io(
+    location.hostname === "localhost"
+      ? "http://localhost:3000"
+      : "https://bow-8ssn.onrender.com"
+);
 // 取得畫布與繪圖上下文
-const socket = io("https://bow-8ssn.onrender.com");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const epsilon =0.00001
